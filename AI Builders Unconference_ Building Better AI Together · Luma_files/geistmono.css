@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "geist-mono";
+  src: url("/fonts/geistmono-500.woff2");
+  font-display:auto;font-style:normal;font-weight:500;font-stretch:normal;font-display:swap;
+}
+
+@font-face {
+  font-family: "geist-mono";
+  src: url("/fonts/geistmono-600.woff2");
+  font-display:auto;font-style:normal;font-weight:600;font-stretch:normal;font-display:swap;
+}
