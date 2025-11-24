@@ -21,12 +21,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// Luma-style gradient mesh shader
-const vertexShader = `
-  varying vec2 vUv;
-  uniform float time;
-  
-  // Simplex noise function for organic movement
+// Shared Simplex noise function for GLSL
+const simplexNoiseGLSL = `
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -58,6 +54,14 @@ const vertexShader = `
     g.yz = a0.yz * x12.xz + h.yz * x12.yw;
     return 130.0 * dot(m, g);
   }
+`;
+
+// Luma-style gradient mesh shader
+const vertexShader = `
+  varying vec2 vUv;
+  uniform float time;
+  
+  ${simplexNoiseGLSL}
   
   void main() {
     vUv = uv;
@@ -73,39 +77,19 @@ const vertexShader = `
   }
 `;
 
+// Gradient color stops for multi-stop gradient
+const color1 = [0.05, 0.05, 0.15];  // Deep blue-black
+const color2 = [0.15, 0.08, 0.25];  // Deep purple
+const color3 = [0.3, 0.15, 0.4];    // Purple
+const color4 = [0.5, 0.25, 0.35];   // Purple-pink
+const color5 = [0.8, 0.5, 0.3];     // Orange-gold
+
 const fragmentShader = `
   uniform float time;
   uniform vec2 resolution;
   varying vec2 vUv;
   
-  // Simplex noise for fragment shader
-  vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-  vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-  vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
-  
-  float snoise(vec2 v) {
-    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-    vec2 i  = floor(v + dot(v, C.yy) );
-    vec2 x0 = v -   i + dot(i, C.xx);
-    vec2 i1;
-    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-    vec4 x12 = x0.xyxy + C.xxzz;
-    x12.xy -= i1;
-    i = mod289(i);
-    vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
-    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-    m = m*m ;
-    m = m*m ;
-    vec3 x = 2.0 * fract(p * C.www) - 1.0;
-    vec3 h = abs(x) - 0.5;
-    vec3 ox = floor(x + 0.5);
-    vec3 a0 = x - ox;
-    m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
-    vec3 g;
-    g.x  = a0.x  * x0.x  + h.x  * x0.y;
-    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-    return 130.0 * dot(m, g);
-  }
+  ${simplexNoiseGLSL}
   
   void main() {
     vec2 uv = vUv;
@@ -126,11 +110,11 @@ const fragmentShader = `
     gradient += noise1 * 0.1;
     
     // Luma-inspired color palette: deep blue to purple to orange
-    vec3 color1 = vec3(0.05, 0.05, 0.15);  // Deep blue-black
-    vec3 color2 = vec3(0.15, 0.08, 0.25);  // Deep purple
-    vec3 color3 = vec3(0.3, 0.15, 0.4);    // Purple
-    vec3 color4 = vec3(0.5, 0.25, 0.35);   // Purple-pink
-    vec3 color5 = vec3(0.8, 0.5, 0.3);     // Orange-gold
+    vec3 color1 = vec3(${color1[0]}, ${color1[1]}, ${color1[2]});
+    vec3 color2 = vec3(${color2[0]}, ${color2[1]}, ${color2[2]});
+    vec3 color3 = vec3(${color3[0]}, ${color3[1]}, ${color3[2]});
+    vec3 color4 = vec3(${color4[0]}, ${color4[1]}, ${color4[2]});
+    vec3 color5 = vec3(${color5[0]}, ${color5[1]}, ${color5[2]});
     
     // Multi-stop gradient mixing
     vec3 color;
@@ -157,8 +141,20 @@ const fragmentShader = `
   }
 `;
 
-// Create plane geometry with high subdivision for smooth warping
-const geometry = new THREE.PlaneGeometry(2, 2, 128, 128);
+// Adaptive mesh subdivision based on device performance
+const getOptimalSubdivisions = () => {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+  
+  if (isMobile || isLowEnd) {
+    return 64; // Lower subdivision for mobile/low-end devices
+  }
+  return 96; // Balanced subdivision for most devices
+};
+
+// Create plane geometry with adaptive subdivision
+const subdivisions = getOptimalSubdivisions();
+const geometry = new THREE.PlaneGeometry(2, 2, subdivisions, subdivisions);
 
 // Create shader material
 const material = new THREE.ShaderMaterial({
