@@ -110,12 +110,12 @@ window.addEventListener('resize', () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// Animation loop
+// Animation loop with cached references
+const positionsArray = lineGeometry.attributes.position.array;
+const colorsArray = lineGeometry.attributes.color.array;
+
 function animate() {
   requestAnimationFrame(animate);
-  
-  const positions = lineGeometry.attributes.position.array;
-  const colors = lineGeometry.attributes.color.array;
   
   // Update each star
   for (let i = 0; i < starCount; i++) {
@@ -127,24 +127,24 @@ function animate() {
     
     // Front point (current position)
     const i6 = i * 6;
-    positions[i6] = star.x;
-    positions[i6 + 1] = star.y;
-    positions[i6 + 2] = star.z;
+    positionsArray[i6] = star.x;
+    positionsArray[i6 + 1] = star.y;
+    positionsArray[i6 + 2] = star.z;
     
     // Back point (trail)
-    positions[i6 + 3] = star.x;
-    positions[i6 + 4] = star.y;
-    positions[i6 + 5] = star.z - streakLength;
+    positionsArray[i6 + 3] = star.x;
+    positionsArray[i6 + 4] = star.y;
+    positionsArray[i6 + 5] = star.z - streakLength;
     
     // Color for front point (bright)
-    colors[i6] = star.r;
-    colors[i6 + 1] = star.g;
-    colors[i6 + 2] = star.b;
+    colorsArray[i6] = star.r;
+    colorsArray[i6 + 1] = star.g;
+    colorsArray[i6 + 2] = star.b;
     
     // Color for back point (dim/fade out)
-    colors[i6 + 3] = star.r * 0.2;
-    colors[i6 + 4] = star.g * 0.2;
-    colors[i6 + 5] = star.b * 0.2;
+    colorsArray[i6 + 3] = star.r * 0.2;
+    colorsArray[i6 + 4] = star.g * 0.2;
+    colorsArray[i6 + 5] = star.b * 0.2;
   }
   
   lineGeometry.attributes.position.needsUpdate = true;
