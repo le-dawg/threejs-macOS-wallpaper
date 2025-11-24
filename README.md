@@ -5,9 +5,9 @@ Experience mesmerizing, silky-smooth animated gradients that bring your macOS de
 
 ## 📦 Core Files:
 
-- **index.html** (607 bytes) - Minimal HTML with fullscreen canvas
-- **three.min.js** (501 KB) - THREE.js r177 library (extracted from saved assets)
-- **animation.js** (3.7 KB) - Custom warped gradient animation with GLSL shaders
+- **index.html** - Minimal HTML with fullscreen canvas and ES module setup
+- **three.module.min.js** (686 KB) - THREE.js r177 ES module library from jsDelivr
+- **animation.js** (3.8 KB) - Custom warped gradient animation with GLSL shaders
 - **serve.sh** (247 bytes) - Quick server start script
 
 ## 📚 Documentation:
@@ -22,7 +22,7 @@ Experience mesmerizing, silky-smooth animated gradients that bring your macOS de
 - **Beautiful Animation**: Custom warped gradient with smooth color transitions
 - **Plash-Optimized**: Pointer events disabled, auto-resize, high DPI support
 - **High Performance**: 60 FPS WebGL rendering
-- **Fully Offline**: No external dependencies (540 KB total)
+- **Fully Offline**: No external dependencies (690 KB total)
 - **Secure**: Zero vulnerabilities (CodeQL verified)
 - **Well Documented**: 4 comprehensive documentation files
 

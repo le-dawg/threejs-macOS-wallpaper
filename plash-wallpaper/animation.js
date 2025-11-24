@@ -1,4 +1,6 @@
 // Warped Gradient Animation for Plash Wallpaper
+import * as THREE from 'three';
+
 // Disable pointer events so desktop icons remain clickable
 document.body.style.pointerEvents = "none";
 

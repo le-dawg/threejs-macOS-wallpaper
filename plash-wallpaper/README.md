@@ -60,8 +60,8 @@ You can customize the animation by editing `animation.js`:
 
 ## Files
 
-- `index.html` - Main HTML file with styling
-- `three.min.js` - Three.js r177 library
+- `index.html` - Main HTML file with styling and ES module setup
+- `three.module.min.js` - THREE.js r177 ES module library
 - `animation.js` - Warped gradient animation code
 - `README.md` - This file
 - `serve.sh` - Quick start server script
