@@ -1,3 +1,22 @@
+# Repository Guidelines
+
+## Project Structure & Module Organization
+Core runtime files sit in the repository root: `index.html` orchestrates the web view, `animation.js` hosts the Three.js scene and shader logic, `three.module.min.js` is the vendored library, and `serve.sh` wraps local serving. Reference installation notes in `INSTALLATION.md`, quick usage in `QUICKSTART.txt`, and deeper context in `TECHNICAL_NOTES.md` before modifying shaders or render settings.
+
+## Build, Test, and Development Commands
+Use `./serve.sh` to launch `python3 -m http.server 8000` after clearing any lingering process on that port—ideal for Plash previews. When scripting or automating, run `python3 -m http.server 8000` directly from the project root; `npx serve` is an alternative if Node.js tooling is already in use. Always reload the Plash wallpaper or browser tab after changes to confirm the build is serving fresh assets.
+
+## Coding Style & Naming Conventions
+Keep JavaScript modules ES2015+ with `const`/`let` bindings and two-space indentation, matching the existing codebase. Favor single quotes for strings in JavaScript except where DOM APIs require doubles, and leave shader GLSL blocks inside template literals un-indented to preserve whitespace. Name configuration objects descriptively (e.g., `config`, `vertexShader`) and keep helper functions pure so animation timing remains deterministic.
+
+## Testing Guidelines
+There is no automated test suite; validate changes by running the local server and confirming the animation renders at 60 FPS without console errors. Stress-test window resizing, pixel ratio changes, and pointer-event behavior to ensure Plash interactivity stays intact. Record any observed regressions or manual test steps in the pull request to document coverage.
+
+## Commit & Pull Request Guidelines
+Follow the existing history: short, imperative summaries such as "Implement starfield warp speed animation" keep `git log --oneline` scannable. Reference related issues in the body, note manual verification ("Tested via ./serve.sh"), and attach before/after captures or GIFs for visual tweaks. Pull requests should summarize shader or configuration impacts, call out performance considerations, and highlight any required Plash configuration updates.
+
+## Plash & Performance Tips
+When introducing new assets, keep files co-located in the root so the HTTP server exposes them without extra routing. Monitor GPU utilization when adjusting `config` counts or glow intensity to avoid throttling on lower-power devices. Provide sane defaults and guard experimental toggles with comments so contributors understand trade-offs before shipping.
 # Plash Wallpaper Project Summary
 
 ## 📋 Project Overview

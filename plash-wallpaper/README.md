@@ -1,96 +1,69 @@
-# Plash Wallpaper - Three.js Warped Gradient Animation
+# AIR Wallpaper - Starstream Edition
 
-A live animated wallpaper featuring a smooth warped gradient effect created with Three.js r177.
+**Official Internal Tool of AI Raadgivning ApS**
 
-## Features
+A high-performance, adaptive animated wallpaper designed for macOS and Plash. It features a "starstream" particle effect with a central "Air Logo" that reacts to your system activity.
 
-- Smooth warped gradient animation
-- Fully offline-capable (no external dependencies)
-- Optimized for Plash wallpaper engine
-- Auto-resizes to window dimensions
-- Desktop icons remain clickable (pointer events disabled)
-- Sharp rendering with pixel ratio support
+## ✨ Features
 
-## Installation
+-   **Adaptive Speed**: The animation speed reacts to your typing and clicking activity in real-time.
+-   **Cyber Retrowave Aesthetics**: The logo features wave ripples, chromatic aberration, and scanlines.
+-   **Dual Modes**:
+    -   **Default**: Constant, smooth animation.
+    -   **Adaptive**: Reacts to your workflow intensity.
+-   **Native Performance**: Powered by a lightweight Swift background monitor (negligible CPU usage).
+-   **Offline Capable**: Runs entirely locally on your machine.
+-   **Zero-Friction**: Single-script installation with auto-starting background services.
 
-### Option 1: Local Server (Recommended)
+## 🚀 Installation
 
-1. Run a local server:
-   ```bash
-   cd plash-wallpaper
-   python3 -m http.server 8000
-   ```
+We have streamlined the setup into a single "one-click" installer.
 
-2. In Plash, set wallpaper URL to:
-   ```
-   http://localhost:8000
-   ```
+1.  **Prerequisite**: Install **Plash** from the Mac App Store.
 
-### Option 2: Alternative Server Methods
+2.  **Open Terminal** and navigate to the folder where you pulled this repository:
+    ```bash
+    cd /path/to/your/downloaded/repo
+    ```
 
-Using Node.js (if installed):
-```bash
-cd plash-wallpaper
-npx serve
-```
+3.  **Run the Installer**:
+    ```bash
+    ./install.sh
+    ```
+    *This script will compile the native monitor, install background agents, and clean up temporary files.*
 
-Using PHP (if installed):
-```bash
-cd plash-wallpaper
-php -S localhost:8000
-```
+3.  **Grant Permissions**:
+    -   You will likely see a popup asking for **Accessibility Permissions**.
+    -   Go to **System Settings > Privacy & Security > Accessibility**.
+    -   Toggle the switch for `monitor` to **ON**.
+    -   *If the animation doesn't react immediately, run `./install.sh` one more time to restart the service.*
 
-## Using with Plash
+4.  **Configure Plash**:
+    -   Open **Plash** (available on the Mac App Store).
+    -   Add a new website with one of the following URLs:
+        -   **Adaptive Mode** (Recommended): `http://localhost:8000?mode=adaptive`
+        -   **Default Mode** (Constant): `http://localhost:8000`
 
-1. Download and install [Plash](https://sindresorhus.com/plash) from the Mac App Store
-2. Start the local server using one of the methods above
-3. Open Plash preferences
-4. Add a new website wallpaper
-5. Enter the URL: `http://localhost:8000`
-6. Adjust opacity and other settings as desired
+## ❓ Troubleshooting
 
-## Customization
+**Problem: Animation freezes after a while.**
+-   **Fix**: Ensure you are using the `?mode=adaptive` URL. The latest update includes a "minimum speed" floor to prevent freezing when idle.
+-   **Fix**: Check if the `monitor` process is running: `pgrep -l monitor`. If not, run `./install.sh` again.
 
-You can customize the animation by editing `animation.js`:
+**Problem: "Air Logo" is missing.**
+-   **Fix**: Ensure `airlogo.svg` is present in the project folder.
+-   **Fix**: Check the browser console (Right-click > Inspect Element in Plash "Browsing Mode") for errors.
 
-- **Colors**: Modify the `palette()` function and `baseColor` in the fragment shader
-- **Animation Speed**: Adjust the time multipliers in the shader
-- **Warp Intensity**: Change the amplitude values (e.g., `* 0.1`, `* 0.05`)
-- **Rotation**: Modify or remove the `plane.rotation.z` line
+**Problem: Speed doesn't change when I type.**
+-   **Fix**: Verify Accessibility Permissions are granted for `monitor`.
+-   **Fix**: Ensure you are using the `?mode=adaptive` URL.
 
-## Files
+## 🛠 Technical Details
 
-- `index.html` - Main HTML file with styling and ES module setup
-- `three.module.min.js` - THREE.js r177 ES module library
-- `animation.js` - Warped gradient animation code
-- `README.md` - This file
-- `serve.sh` - Quick start server script
+-   **Frontend**: Three.js (WebGL) with custom GLSL shaders.
+-   **Backend**: Native Swift (`monitor`) for system-wide event tracking.
+-   **Communication**: The monitor writes to `speed.json`, which the frontend polls.
+-   **Persistence**: `launchd` agents keep both the web server and the monitor running in the background.
 
-## Technical Details
-
-- **Library**: Three.js r177
-- **Renderer**: WebGL
-- **Technique**: Custom GLSL shaders for warped gradient effect
-- **Performance**: Optimized for smooth 60 FPS playback
-- **Compatibility**: Works with any webview wallpaper engine
-
-## Troubleshooting
-
-**Animation not loading:**
-- Make sure you're serving over HTTP (file:// won't work)
-- Check browser console for errors
-- Verify all files are in the same directory
-
-**Performance issues:**
-- Lower the resolution by adjusting geometry detail
-- Reduce the number of warp layers in the shader
-- Check that hardware acceleration is enabled
-
-**Desktop icons not clickable:**
-- This should work by default as pointer-events are disabled
-- If not, check Plash settings
-
-## License
-
-This wallpaper is based on the gradient animation style from Luma's event pages.
-Feel free to modify and use for personal purposes.
+---
+*Property of AI Raadgivning ApS*

@@ -1,104 +1,54 @@
 ╔══════════════════════════════════════════════════════════════════╗
 ║                                                                  ║
-║           PLASH WALLPAPER - THREE.JS ANIMATION                   ║
+║           AI RAADGIVNING APS - OFFICIAL ONBOARDING               ║
 ║                                                                  ║
-║                    Quick Start Guide                             ║
+║                  AIR Wallpaper - Quick Start                     ║
 ║                                                                  ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-🚀 GET STARTED IN 3 STEPS:
+🚀 INITIALIZATION SEQUENCE:
 
-  1️⃣  Install Plash
-     → Download from Mac App Store (FREE)
-     → https://sindresorhus.com/plash
+  1️⃣  Prerequisites
+     → Install "Plash" from the Mac App Store
 
-  2️⃣  Start Server
+  2️⃣  Execute Installer
      → Open Terminal
-     → cd /path/to/meh/plash-wallpaper
-     → ./serve.sh
+     → cd /path/to/your/downloaded/repo
+     → ./install.sh
+     (Must be executed from the repository root directory)
 
-  3️⃣  Configure
+  2️⃣  Authorize System Access
+     → System Settings > Privacy & Security > Accessibility
+     → Enable "monitor"
+
+  3️⃣  Activate Visual Interface
      → Open Plash
-     → Add Website: http://localhost:8000
-     → Done! 🎉
+     → Add Website: 
+     - Adaptive Mode: http://localhost:8000?mode=adaptive
+     - Default Mode: http://localhost:8000
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📁 WHAT'S INCLUDED:
+✨ SYSTEM CAPABILITIES:
 
-  ✓ index.html           → Main HTML file
-  ✓ animation.js         → Warped gradient animation
-  ✓ three.min.js         → THREE.js r177 library
-  ✓ serve.sh             → Server launcher
-  ✓ README.md            → Full documentation
-  ✓ INSTALLATION.md      → Detailed setup guide
-  ✓ PROJECT_SUMMARY.md   → Technical details
+  • Adaptive Speed Response (Typing/Clicking)
+  • Cyber Retrowave Visuals
+  • Native Swift Performance Core
+  • Zero-Latency Local Execution
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✨ FEATURES:
+📚 REFERENCE MATERIAL:
 
-  • Beautiful warped gradient animation
-  • Smooth 60 FPS performance
-  • Dark blue/purple color palette
-  • Desktop icons stay clickable
-  • Auto-resizes to screen
-  • Fully offline (no internet needed)
-  • Only 540 KB total size
+  Full Manual     → README.md
+  System Agents   → AGENTS.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎨 CUSTOMIZE:
+🎉 WELCOME TO YOUR NEWLY ONBOARDED AIR WALLPAPER!
 
-  → Edit animation.js
-  → Change colors in palette() function
-  → Adjust warp intensity
-  → Modify animation speed
-  → See README.md for examples
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-❓ TROUBLESHOOTING:
-
-  Problem: Server won't start
-  → Install Python 3: brew install python3
-
-  Problem: Can't connect
-  → Check URL: http://localhost:8000 (not https)
-  → Verify server is running
-
-  Problem: Black screen
-  → Check browser console (F12)
-  → Try reloading in Plash
-
-  More help → See INSTALLATION.md
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-💡 PRO TIPS:
-
-  • Run server on startup (see INSTALLATION.md)
-  • Adjust Plash opacity for subtle effect
-  • Use with multiple monitors
-  • Try different color schemes
-  • Share your customizations!
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📚 DOCUMENTATION:
-
-  Quick Start     → This file (QUICKSTART.txt)
-  Setup Guide     → INSTALLATION.md
-  Features        → README.md
-  Technical       → PROJECT_SUMMARY.md
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🎉 ENJOY YOUR NEW ANIMATED WALLPAPER!
-
-   For issues or questions, check the README.md
-   or visit the project repository.
+   For internal support, refer to the README.md.
 
 ╔══════════════════════════════════════════════════════════════════╗
-║  Made with ❤️  using Three.js r177                               ║
+║  AI Raadgivning ApS - Internal Tools Division                    ║
 ╚══════════════════════════════════════════════════════════════════╝
